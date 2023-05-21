@@ -68,6 +68,18 @@ export class FileItem {
         }
     }
 
+    public async decrypt(): Promise<FileItem> {
+        assertTargetPath(this.targetPath);
+
+        try {
+            const fileContent = await workspace.fs.readFile(this.path);
+            await workspace.fs.writeFile(this.targetPath, fileContent);
+            return new FileItem(this.targetPath, undefined, this.isDir);
+        } catch (error) {
+            throw new Error(`Failed to decrypt file "${this.targetPath.fsPath}. (${error})"`);
+        }
+    }
+
     public async remove(): Promise<FileItem> {
         const edit = new WorkspaceEdit();
         edit.deleteFile(this.path, { recursive: true, ignoreIfNotExists: true });

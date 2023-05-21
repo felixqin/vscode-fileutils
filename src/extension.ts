@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import {
     Command,
     CopyFileNameCommand,
+    DecryptFileCommand,
     DuplicateFileCommand,
     MoveFileCommand,
     NewFileCommand,
@@ -11,6 +12,7 @@ import {
 } from "./command";
 import {
     CopyFileNameController,
+    DecryptFileController,
     DuplicateFileController,
     MoveFileController,
     NewFileController,
@@ -34,6 +36,7 @@ function register(context: vscode.ExtensionContext, command: Command, commandNam
 
 export function activate(context: vscode.ExtensionContext): void {
     const copyFileNameController = new CopyFileNameController(context);
+    const decryptFileController = new DecryptFileController(context);
     const duplicateFileController = new DuplicateFileController(context);
     const moveFileController = new MoveFileController(context);
     const newFileController = new NewFileController(context);
@@ -41,6 +44,7 @@ export function activate(context: vscode.ExtensionContext): void {
     const renameFileController = new RenameFileController(context);
 
     register(context, new CopyFileNameCommand(copyFileNameController), "copyFileName");
+    register(context, new DecryptFileCommand(decryptFileController), "decryptFile");
     register(context, new DuplicateFileCommand(duplicateFileController), "duplicateFile");
     register(context, new MoveFileCommand(moveFileController), "moveFile");
     register(context, new NewFileCommand(newFileController, { relativeToRoot: true }), "newFileAtRoot");

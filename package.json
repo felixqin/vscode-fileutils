@@ -37,6 +37,7 @@
         "onCommand:fileutils.renameFile",
         "onCommand:fileutils.moveFile",
         "onCommand:fileutils.duplicateFile",
+        "onCommand:fileutils.decryptFile",
         "onCommand:fileutils.removeFile",
         "onCommand:fileutils.newFile",
         "onCommand:fileutils.newFileAtRoot",
@@ -60,6 +61,11 @@
                 "command": "fileutils.duplicateFile",
                 "category": "File Utils",
                 "title": "Duplicate..."
+            },
+            {
+                "command": "fileutils.decryptFile",
+                "category": "File Utils",
+                "title": "Decrypt..."
             },
             {
                 "command": "fileutils.removeFile",
@@ -105,6 +111,11 @@
                     "when": "config.fileutils.menus.context.explorer =~ /duplicateFile/"
                 },
                 {
+                    "command": "fileutils.decryptFile",
+                    "group": "7_modification",
+                    "when": "config.fileutils.menus.context.explorer =~ /decryptFile/"
+                },
+                {
                     "command": "fileutils.newFileAtRoot",
                     "group": "2_workspace",
                     "when": "config.fileutils.menus.context.explorer =~ /newFileAtRoot/"
@@ -142,6 +153,11 @@
                     "when": "config.fileutils.menus.context.editor =~ /duplicateFile/ && resourceScheme != output"
                 },
                 {
+                    "command": "fileutils.decryptFile",
+                    "group": "1_modification@3",
+                    "when": "config.fileutils.menus.context.editor =~ /decryptFile/ && resourceScheme != output"
+                },
+                {
                     "command": "fileutils.removeFile",
                     "group": "1_modification@4",
                     "when": "config.fileutils.menus.context.editor =~ /removeFile/ && resourceScheme != output"
@@ -167,6 +183,11 @@
                     "command": "fileutils.duplicateFile",
                     "group": "1_modification@3",
                     "when": "config.fileutils.menus.context.editorTitle =~ /duplicateFile/"
+                },
+                {
+                    "command": "fileutils.decryptFile",
+                    "group": "1_modification@3",
+                    "when": "config.fileutils.menus.context.editorTitle =~ /decryptFile/"
                 },
                 {
                     "command": "fileutils.removeFile",
@@ -231,6 +252,7 @@
                     "default": [
                         "moveFile",
                         "duplicateFile",
+                        "decryptFile",
                         "newFileAtRoot",
                         "newFolderAtRoot",
                         "copyFileName"
@@ -240,6 +262,7 @@
                         "enum": [
                             "moveFile",
                             "duplicateFile",
+                            "decryptFile",
                             "newFileAtRoot",
                             "newFolderAtRoot",
                             "copyFileName"
@@ -262,6 +285,7 @@
                         "renameFile",
                         "moveFile",
                         "duplicateFile",
+                        "decryptFile",
                         "removeFile",
                         "copyFileName"
                     ],
@@ -271,6 +295,7 @@
                             "renameFile",
                             "moveFile",
                             "duplicateFile",
+                            "decryptFile",
                             "removeFile",
                             "copyFileName"
                         ],
@@ -292,6 +317,7 @@
                         "renameFile",
                         "moveFile",
                         "duplicateFile",
+                        "decryptFile",
                         "removeFile",
                         "copyFileName"
                     ],
@@ -301,6 +327,7 @@
                             "renameFile",
                             "moveFile",
                             "duplicateFile",
+                            "decryptFile",
                             "removeFile",
                             "copyFileName"
                         ],
@@ -350,7 +377,7 @@
         "bluebird": "3.7.2",
         "bluebird-retry": "0.11.0",
         "chai": "4.3.7",
-        "esbuild": "0.17.18",
+        "esbuild": "^0.17.18",
         "eslint": "8.40.0",
         "husky": "8.0.3",
         "mocha": "10.2.0",
