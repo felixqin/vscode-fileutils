@@ -1,11 +1,13 @@
 import { Uri } from "vscode";
+import { FileItem } from "../FileItem";
 import { MoveFileController } from "../controller/MoveFileController";
 import { BaseCommand } from "./BaseCommand";
 
 export class DecryptFileCommand extends BaseCommand<MoveFileController> {
     public async execute(uri?: Uri): Promise<void> {
-        const dialogOptions = { prompt: "Decrypt To", uri };
-        const fileItem = await this.controller.showDialog(dialogOptions);
-        await this.executeController(fileItem, { openFileInEditor: !fileItem?.isDir });
+        const sourcePath = await this.controller.getSourcePath({ uri });
+        const targetPath = sourcePath + ".dec.txt";
+        const fileItem = new FileItem(sourcePath, targetPath);
+        await this.executeController(fileItem, { openFileInEditor: true });
     }
 }

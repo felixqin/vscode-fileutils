@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Uri, workspace, WorkspaceEdit } from "vscode";
+import { Position, Uri, WorkspaceEdit, window, workspace } from "vscode";
 
 function assertTargetPath(targetPath: Uri | undefined): asserts targetPath is Uri {
     if (targetPath === undefined) {
@@ -73,7 +73,16 @@ export class FileItem {
 
         try {
             const fileContent = await workspace.fs.readFile(this.path);
-            await workspace.fs.writeFile(this.targetPath, fileContent);
+            // TODO: if file not exists, create it
+            workspace.openTextDocument(this.targetPath).then((doc) => {
+                window.showTextDocument(doc).then((editor) => {
+                    editor.edit((edit) => {
+                        // TODO: clear file content
+                        edit.insert(new Position(0, 0), fileContent.toString());
+                    });
+                });
+            });
+
             return new FileItem(this.targetPath, undefined, this.isDir);
         } catch (error) {
             throw new Error(`Failed to decrypt file "${this.targetPath.fsPath}. (${error})"`);
